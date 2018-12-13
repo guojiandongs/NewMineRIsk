@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@mipmap/ic_login_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity">

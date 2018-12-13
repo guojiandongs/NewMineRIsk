@@ -26,7 +26,7 @@
         android:paddingLeft="9dp"
         android:paddingRight="9dp">
 
-        <android.support.v7.widget.LinearLayoutCompat
+        <!--<android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_marginTop="12dp"
@@ -67,7 +67,7 @@
                 android:textSize="@dimen/normal_ts" />
 
 
-        </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.v7.widget.LinearLayoutCompat>-->
 
 
         <View
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="综掘二队"
+                android:text="隐患单位"
                 android:textColor="@color/white"
                 android:textSize="@dimen/normal_ts" />
 
@@ -95,7 +95,7 @@
                 android:id="@+id/tv_processed_num_0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="3"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:singleLine="true"
@@ -103,11 +103,46 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/normal_ts" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/tv_unprocessed_num_0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_ts" />-->
+
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.67dp"
+            android:background="@color/white" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="专业"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_ts" />
+
+            <TextView
+                android:id="@+id/tv_professional"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:singleLine="true"
@@ -119,6 +154,85 @@
         </android.support.v7.widget.LinearLayoutCompat>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="0.67dp"
+            android:background="@color/white" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="区域"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_ts" />
+
+            <TextView
+                android:id="@+id/tv_area"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_ts" />
+
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.67dp"
+            android:background="@color/white" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="级别"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_ts" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_ts" />
+
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.67dp"
+            android:background="@color/white" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/ll_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="0.67dp"
             android:background="@color/white" />
@@ -212,118 +326,7 @@
                 android:textSize="@dimen/normal_ts" />
 
 
-        </android.support.v7.widget.LinearLayoutCompat>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.67dp"
-            android:background="@color/white" />
-
-        <android.support.v7.widget.LinearLayoutCompat
-            android:id="@+id/ll_expand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="专业"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/normal_ts" />
-
-                <TextView
-                    android:id="@+id/tv_professional"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:ellipsize="marquee"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/normal_ts" />
-
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.67dp"
-                android:background="@color/white" />
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="区域"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/normal_ts" />
-
-                <TextView
-                    android:id="@+id/tv_area"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:ellipsize="marquee"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/normal_ts" />
-
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.67dp"
-                android:background="@color/white" />
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="类别"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/normal_ts" />
-
-                <TextView
-                    android:id="@+id/tv_type"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:ellipsize="marquee"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/normal_ts" />
-
-
-            </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.v7.widget.LinearLayoutCompat>-->
 
             <View
                 android:layout_width="match_parent"
