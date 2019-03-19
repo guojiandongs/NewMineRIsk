@@ -3,8 +3,8 @@ package com.example.newminerisk.bean;
 public class GroupCountJb {
 	private String A;// 区域名称
 	private String B;// 区域编码
-	private String C;// 区域编码
 	private String D;// 区域编码
+	private String C;// 区域编码
 
 	public String getA() {
 		return A;

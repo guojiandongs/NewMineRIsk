@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         Utils.putValue(MainActivity.this, Constants.PWD,
                 password);
         Intent intent = new Intent(MainActivity.this,
-                MainWindowActivity.class);
+                IndexActivity.class);
         startActivity(intent);
         et_password.setText("");
     }

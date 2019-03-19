@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">双重预警机制</string>
+    <string name="hidden_statistics">隐患统计</string>
+    <string name="risk_statistics">风险统计</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
 </resources>

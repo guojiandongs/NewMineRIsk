@@ -9,4 +9,6 @@
     <color name="black">#ff000000</color>
     <color name="blue1">#1197DB</color>
     <color name="black1">#7A7E83</color>
+    <color name="colorGraylighter">#999999</color>
+    <color name="colorGray">#666666</color>
 </resources>
