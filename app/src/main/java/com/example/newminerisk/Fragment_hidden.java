@@ -106,6 +106,7 @@ public class Fragment_hidden extends Fragment {
             }
         }
         initView(layout);
+        initData();
         return layout;
     }
 

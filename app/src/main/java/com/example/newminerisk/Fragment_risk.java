@@ -26,6 +26,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.newminerisk.bean.Colliery;
 import com.example.newminerisk.bean.GroupCount;
 import com.example.newminerisk.bean.GroupCountJb;
+import com.example.newminerisk.bean.GroupRiskCount;
 import com.example.newminerisk.common.NetUtil;
 import com.example.newminerisk.net.BaseJsonRes;
 import com.example.newminerisk.net.NetClient;
@@ -62,9 +63,6 @@ public class Fragment_risk extends Fragment {
     private TextView tvNum11;
     private TextView tvNum20;
     private TextView tvNum21;
-    private TextView tvNum30;
-    private PieChart pieChart;
-    private TextView tvPiechartTop;
     private TextView totalType;
     private TextView tbStyle;
     private PieChart pieChartBig;
@@ -107,6 +105,7 @@ public class Fragment_risk extends Fragment {
             }
         }
         initView(layout);
+        initData();
         return layout;
     }
 
@@ -116,9 +115,6 @@ public class Fragment_risk extends Fragment {
         tvNum11 = layout.findViewById(R.id.tv_num_11);
         tvNum20 = layout.findViewById(R.id.tv_num_20);
         tvNum21 = layout.findViewById(R.id.tv_num_21);
-        tvNum30 = layout.findViewById(R.id.tv_num_30);
-        pieChart = layout.findViewById(R.id.pieChart);
-        tvPiechartTop = layout.findViewById(R.id.tv_piechart_top);
         pieChartBig = layout.findViewById(R.id.pieChart_big);
         lineChartTop = layout.findViewById(R.id.lineChartTop);
         lineChartBotoom = layout.findViewById(R.id.lineChartBotoom);
@@ -228,27 +224,6 @@ public class Fragment_risk extends Fragment {
                 }
             }
         });
-        ll30.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!TextUtils.isEmpty(collieryId)){
-                    if(!tvNum30.getText().toString().equals("0")){
-                        Intent intent = new Intent(ctx, ListActivity.class);
-                        intent.putExtra("total", Integer.parseInt(tvNum30.getText().toString()));
-                        intent.putExtra("collieryId", collieryId);
-                        intent.putExtra("url", Constants.GET_HIDDENDANGER_RECORD_LIST_OPEN);
-                        int yesr = Integer.parseInt(timeName.split("-")[0]);
-                        int month = Integer.parseInt(timeName.split("-")[1]);
-                        String data = getSupportEndDayofMonth(yesr,month);
-                        intent.putExtra("customParamsOne", timeName+"-0100:00:00");
-                        intent.putExtra("customParamsTwo", data);
-                        startActivity(intent);
-                    }
-                }else{
-                    Utils.showShortToast(ctx, "总局没有提供查询接口");
-                }
-            }
-        });
     }
 
     private void initData(){
@@ -294,7 +269,7 @@ public class Fragment_risk extends Fragment {
     //获取总局隐患
     private void getGroupCount() {
         if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_COUNT_);
+            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_RISK_COUNT_);
             if("".equals(jsondata)){
                 Utils.showShortToast(ctx, "没有联网，没有请求到数据");
             }else{
@@ -307,7 +282,7 @@ public class Fragment_risk extends Fragment {
             int month = Integer.parseInt(timeName.split("-")[1]);
             String data = getSupportEndDayofMonth(yesr,month);
             params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_COUNT_, params, new BaseJsonRes() {
+            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_RISK_COUNT_, params, new BaseJsonRes() {
 
                 @Override
                 public void onMySuccess(String data) {
@@ -438,7 +413,7 @@ public class Fragment_risk extends Fragment {
     //获取所有矿的重大隐患分矿统计信息
     private void getGroupImportRecordCount() {
         if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_IMPORTANT_RECORD_COUNT);
+            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_IMPORTANT_RECORD_RISK_COUNT);
             if("".equals(jsondata)){
                 Utils.showShortToast(ctx, "没有联网，没有请求到数据");
             }else{
@@ -451,7 +426,7 @@ public class Fragment_risk extends Fragment {
             int month = Integer.parseInt(timeName.split("-")[1]);
             String data = getSupportEndDayofMonth(yesr,month);
             params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_IMPORTANT_RECORD_COUNT, params, new BaseJsonRes() {
+            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_IMPORTANT_RECORD_RISK_COUNT, params, new BaseJsonRes() {
 
                 @Override
                 public void onMySuccess(String data) {
@@ -588,17 +563,16 @@ public class Fragment_risk extends Fragment {
     }
 
     private void resultGroupCount(String data){
-        GroupCount groupCount = JSONObject.parseObject(data, GroupCount.class);
-        tvNum21.setText(groupCount.getCloseNum());
-        tvNum11.setText(groupCount.getImportantNum());
-        tvNum10.setText(groupCount.getTotalNum());
-        tvNum30.setText(groupCount.getOpenNum());
-        tvNum20.setText(groupCount.getSupperNum());
+        GroupRiskCount groupCount = JSONObject.parseObject(data, GroupRiskCount.class);
+        tvNum20.setText(groupCount.getZhuanXiangNum());
+        tvNum11.setText(groupCount.getNianDuNum());
+        tvNum10.setText(groupCount.getMonthCount());
+        //tvNum21.setText(groupCount.getSupperNum());
     }
     private void resultGroupCountJb(String data){
         groupCountJb = JSONObject.parseObject(data, GroupCountJb.class);
         initBigChartView();
-        initChartView();
+        //initChartView();
     }
 
     private void resultGroupRecordCount(String data){
@@ -730,8 +704,8 @@ public class Fragment_risk extends Fragment {
             String name;
             String totalNum;
             if(TextUtils.isEmpty(collieryId)){
-                name = collierys.get(i).getCollieryName();
-                totalNum = collierys.get(i).getImportantNum();
+                name = collierys.get(i).getKuangQuName();
+                totalNum = collierys.get(i).getImportNum();
             }else{
                 name = collierys.get(i).getTname();
                 totalNum = collierys.get(i).getTotalNum();
@@ -833,7 +807,7 @@ public class Fragment_risk extends Fragment {
         l.setEnabled(false);
     }
 
-    private void initChartView() {
+    /*private void initChartView() {
         //设置标题
         ArrayList<String> titles = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -878,7 +852,7 @@ public class Fragment_risk extends Fragment {
         l.setEnabled(false);
 
 
-    }
+    }*/
 
 
     private void initBarChart(BarChart barChart) {

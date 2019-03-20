@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,21 +16,12 @@ public class IndexActivity extends FragmentActivity {
     protected static final String TAG = "MainActivity";
     private Fragment[] fragments;
     public Fragment_hidden hiddenStatisticsfragment;
-    private Fragment_hidden riskStatisticsfragment;
+    private Fragment_risk riskStatisticsfragment;
     private ImageView[] imagebuttons;
     private TextView[] textviews;
     private String connectMsg = "aa";
     public int index;
     private int currentTabIndex;// 当前fragment的index
-    private LinearLayoutCompat mLlDialog;
-    private LinearLayoutCompat mLlManageDetail;
-    private LinearLayoutCompat mLlManageRelease;
-    private LinearLayoutCompat mLlManageRectification;
-    private LinearLayoutCompat mLlManageTracking;
-    private LinearLayoutCompat mLlManageOverdue;
-    private LinearLayoutCompat mLlManageReview;
-    private LinearLayoutCompat mLlManage;
-    private LinearLayoutCompat mLlChart;
     public static boolean isForeground = false;
 
 
@@ -45,7 +35,7 @@ public class IndexActivity extends FragmentActivity {
 
     private void initTabView() {
         hiddenStatisticsfragment = new Fragment_hidden();
-        riskStatisticsfragment = new Fragment_hidden();
+        riskStatisticsfragment = new Fragment_risk();
         fragments = new Fragment[]{hiddenStatisticsfragment,riskStatisticsfragment};
         imagebuttons = new ImageView[2];
         imagebuttons[0] = (ImageView) findViewById(R.id.ib_contact_list);
@@ -78,15 +68,6 @@ public class IndexActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mLlDialog.getVisibility() == View.VISIBLE) {
-            mLlDialog.setVisibility(View.GONE);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     //重写onKeyDown方法,对按键(不一定是返回按键)监听

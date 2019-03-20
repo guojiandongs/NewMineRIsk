@@ -18,6 +18,8 @@ public class Colliery {
 	private String importantNum;// 区域编码
 	private String sname;// 区域编码
 	private String tname;// 区域编码
+	private String kuangQuName;// 区域编码
+	private String importNum;// 区域编码
 
 	public String getId() {
 		return id;
@@ -153,5 +155,21 @@ public class Colliery {
 
 	public String getTname() {
 		return tname;
+	}
+
+	public String getKuangQuName() {
+		return kuangQuName;
+	}
+
+	public void setKuangQuName(String kuangQuName) {
+		this.kuangQuName = kuangQuName;
+	}
+
+	public String getImportNum() {
+		return importNum;
+	}
+
+	public void setImportNum(String importNum) {
+		this.importNum = importNum;
 	}
 }

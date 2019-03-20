@@ -62,4 +62,8 @@ public interface Constants {
 	String GET_HIDDENDANGER_RECORD_LIST_CLOSE = "mobile/countGroupMobileAction!getHiddenDangerRecordListClose.action";
 	// 获取未完成隐患总数分页信息列表
 	String GET_HIDDENDANGER_RECORD_LIST_OPEN = "mobile/countGroupMobileAction!getHiddenDangerRecordListOpen.action";
+	// 获取总局风险
+	String GET_GROUP_RISK_COUNT_ = "mobile/groupIdentificationMobileAction!getGroupIdentificationCount.action";
+	// 获取重大风险数量统计
+	String GET_GROUP_IMPORTANT_RECORD_RISK_COUNT = "mobile/groupIdentificationMobileAction!getGroupImportantIdentificCount.action";
 }
