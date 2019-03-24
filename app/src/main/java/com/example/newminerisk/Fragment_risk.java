@@ -7,6 +7,8 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.example.newminerisk.adapter.HomeHiddenDangerAdapter;
 import com.example.newminerisk.bean.Colliery;
 import com.example.newminerisk.bean.GroupCount;
 import com.example.newminerisk.bean.GroupCountJb;
@@ -31,7 +34,9 @@ import com.example.newminerisk.common.NetUtil;
 import com.example.newminerisk.net.BaseJsonRes;
 import com.example.newminerisk.net.NetClient;
 import com.example.newminerisk.tools.Constants;
+import com.example.newminerisk.tools.MyDecoration;
 import com.example.newminerisk.tools.Utils;
+import com.example.newminerisk.util.DensityUtil;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -63,6 +68,9 @@ public class Fragment_risk extends Fragment {
     private TextView tvNum11;
     private TextView tvNum20;
     private TextView tvNum21;
+    private TextView tvNum31;
+    private TextView tvNum32;
+    private TextView tvNum33;
     private TextView totalType;
     private TextView tbStyle;
     private PieChart pieChartBig;
@@ -83,11 +91,14 @@ public class Fragment_risk extends Fragment {
     private LinearLayoutCompat ll10;
     private LinearLayoutCompat ll11;
     private LinearLayoutCompat ll20;
-    private LinearLayoutCompat ll21;
-    private LinearLayoutCompat ll30;
+    private LinearLayoutCompat ll31;
+    private LinearLayoutCompat ll32;
+    private LinearLayoutCompat ll33;
     private View layout;
     private Activity ctx;
     private IndexActivity parentActivity;
+    private RecyclerView mRecyclerView;
+    private HomeHiddenDangerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,6 +126,9 @@ public class Fragment_risk extends Fragment {
         tvNum11 = layout.findViewById(R.id.tv_num_11);
         tvNum20 = layout.findViewById(R.id.tv_num_20);
         tvNum21 = layout.findViewById(R.id.tv_num_21);
+        tvNum31 = layout.findViewById(R.id.tv_num_31);
+        tvNum32 = layout.findViewById(R.id.tv_num_32);
+        tvNum33 = layout.findViewById(R.id.tv_num_33);
         pieChartBig = layout.findViewById(R.id.pieChart_big);
         lineChartTop = layout.findViewById(R.id.lineChartTop);
         lineChartBotoom = layout.findViewById(R.id.lineChartBotoom);
@@ -138,17 +152,18 @@ public class Fragment_risk extends Fragment {
         ll10 = layout.findViewById(R.id.ll_10);
         ll11 = layout.findViewById(R.id.ll_11);
         ll20 = layout.findViewById(R.id.ll_20);
-        ll21 = layout.findViewById(R.id.ll_21);
-        ll30 = layout.findViewById(R.id.ll_30);
+        ll31 = layout.findViewById(R.id.ll_31);
+        ll32 = layout.findViewById(R.id.ll_32);
+        ll33 = layout.findViewById(R.id.ll_33);
         ll10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(collieryId)){
                     if(!tvNum10.getText().toString().equals("0")){
-                        Intent intent = new Intent(ctx, ListActivity.class);
+                        Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
                         intent.putExtra("total", Integer.parseInt(tvNum10.getText().toString()));
-                        intent.putExtra("collieryId", collieryId);
-                        intent.putExtra("url", Constants.GET_HIDDENDANGER_RECORD_LISTTOTAL);
+                        intent.putExtra("kuangQuId", collieryId);
+                        intent.putExtra("datatype", "mLlDangyueNum");
                         int yesr = Integer.parseInt(timeName.split("-")[0]);
                         int month = Integer.parseInt(timeName.split("-")[1]);
                         String data = getSupportEndDayofMonth(yesr,month);
@@ -165,11 +180,11 @@ public class Fragment_risk extends Fragment {
             @Override
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(collieryId)){
-                    if(!tvNum11.getText().toString().equals("0")){
-                        Intent intent = new Intent(ctx, ListActivity.class);
-                        intent.putExtra("total", Integer.parseInt(tvNum11.getText().toString()));
-                        intent.putExtra("collieryId", collieryId);
-                        intent.putExtra("url", Constants.GET_HIDDENDANGER_RECORD_LIST_IMPORTANT);
+                    if(!tvNum10.getText().toString().equals("0")){
+                        Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
+                        intent.putExtra("total", Integer.parseInt(tvNum10.getText().toString()));
+                        intent.putExtra("kuangQuId", collieryId);
+                        intent.putExtra("datatype", "mLlNianduNum");
                         int yesr = Integer.parseInt(timeName.split("-")[0]);
                         int month = Integer.parseInt(timeName.split("-")[1]);
                         String data = getSupportEndDayofMonth(yesr,month);
@@ -178,7 +193,7 @@ public class Fragment_risk extends Fragment {
                         startActivity(intent);
                     }
                 }else{
-                    Utils.showShortToast(ctx, "总局没有提供查询接口");
+                    Utils.showShortToast(ctx, "总局无法查询数据！");
                 }
             }
         });
@@ -186,11 +201,11 @@ public class Fragment_risk extends Fragment {
             @Override
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(collieryId)){
-                    if(!tvNum20.getText().toString().equals("0")){
-                        Intent intent = new Intent(ctx, ListActivity.class);
-                        intent.putExtra("total", Integer.parseInt(tvNum20.getText().toString()));
-                        intent.putExtra("collieryId", collieryId);
-                        intent.putExtra("url", Constants.GET_HIDDENDANGER_RECORD_LIST_SUPPER);
+                    if(!tvNum10.getText().toString().equals("0")){
+                        Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
+                        intent.putExtra("total", Integer.parseInt(tvNum10.getText().toString()));
+                        intent.putExtra("kuangQuId", collieryId);
+                        intent.putExtra("datatype", "mLlZhuanxiangNum");
                         int yesr = Integer.parseInt(timeName.split("-")[0]);
                         int month = Integer.parseInt(timeName.split("-")[1]);
                         String data = getSupportEndDayofMonth(yesr,month);
@@ -199,19 +214,42 @@ public class Fragment_risk extends Fragment {
                         startActivity(intent);
                     }
                 }else{
-                    Utils.showShortToast(ctx, "总局没有提供查询接口");
+                    Utils.showShortToast(ctx, "总局无法查询数据！");
                 }
             }
         });
-        ll21.setOnClickListener(new View.OnClickListener() {
+        ll31.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(collieryId)){
-                    if(!tvNum21.getText().toString().equals("0")){
-                        Intent intent = new Intent(ctx, ListActivity.class);
-                        intent.putExtra("total", Integer.parseInt(tvNum21.getText().toString()));
-                        intent.putExtra("collieryId", collieryId);
-                        intent.putExtra("url", Constants.GET_HIDDENDANGER_RECORD_LIST_CLOSE);
+                    if(!tvNum10.getText().toString().equals("0")){
+                        Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
+                        intent.putExtra("total", Integer.parseInt(tvNum10.getText().toString()));
+                        intent.putExtra("kuangQuId", collieryId);
+                        intent.putExtra("openType", "2");
+                        intent.putExtra("datatype", "mLlonNum_num");
+                        int yesr = Integer.parseInt(timeName.split("-")[0]);
+                        int month = Integer.parseInt(timeName.split("-")[1]);
+                        String data = getSupportEndDayofMonth(yesr,month);
+                        intent.putExtra("customParamsOne", timeName+"-0100:00:00");
+                        intent.putExtra("customParamsTwo", data);
+                        startActivity(intent);
+                    }
+                }else{
+                    Utils.showShortToast(ctx, "总局无法查询数据！");
+                }
+            }
+        });
+        ll32.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(collieryId)){
+                    if(!tvNum11.getText().toString().equals("0")){
+                        Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
+                        intent.putExtra("total", Integer.parseInt(tvNum11.getText().toString()));
+                        intent.putExtra("kuangQuId", collieryId);
+                        intent.putExtra("openType", "1");
+                        intent.putExtra("datatype", "mLlopenNum_num");
                         int yesr = Integer.parseInt(timeName.split("-")[0]);
                         int month = Integer.parseInt(timeName.split("-")[1]);
                         String data = getSupportEndDayofMonth(yesr,month);
@@ -224,15 +262,38 @@ public class Fragment_risk extends Fragment {
                 }
             }
         });
+        ll33.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(collieryId)){
+                    if(!tvNum20.getText().toString().equals("0")){
+                        Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
+                        intent.putExtra("kuangQuId", collieryId);
+                        intent.putExtra("openType", "0");
+                        intent.putExtra("datatype", "mLlcloseNum_num");
+                        int yesr = Integer.parseInt(timeName.split("-")[0]);
+                        int month = Integer.parseInt(timeName.split("-")[1]);
+                        String data = getSupportEndDayofMonth(yesr,month);
+                        intent.putExtra("customParamsOne", timeName+"-0100:00:00");
+                        intent.putExtra("customParamsTwo", data);
+                        startActivity(intent);
+                    }
+                }else{
+                    Utils.showShortToast(ctx, "总局没有提供查询接口");
+                }
+            }
+        });
+        mRecyclerView = layout.findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
     }
 
     private void initData(){
         title.setText(mineName + "[" + timeName + "]");
         getCollieryList();
         getGroupCount();
-        getGroupCountJb();
-        getGroupRecordCount();
         getGroupImportRecordCount();
+        getGroupImportantIdentificCount();
+        getGroupCountMonthNumByKuang();
     }
 
     //获取矿区
@@ -260,6 +321,78 @@ public class Fragment_risk extends Fragment {
                 @Override
                 public void onMyFailure(String content) {
                     Log.e(TAG, "获取矿区返回错误信息：" + content);
+                    Utils.showShortToast(ctx, content);
+                }
+            });
+        }
+    }
+
+    //获取总局-管控数据
+    private void getGroupImportantIdentificCount() {
+        if (!NetUtil.checkNetWork(ctx)) {
+            String jsondata = Utils.getValue(ctx, Constants.get_Group_Count_MonthTypeNum);
+            if("".equals(jsondata)){
+                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
+            }else{
+                resultGroupCountMonthTypeNum(jsondata);
+            }
+        }else{
+            RequestParams params = new RequestParams();
+            params.put("customParamsOne",timeName+"-0100:00:00");
+            int yesr = Integer.parseInt(timeName.split("-")[0]);
+            int month = Integer.parseInt(timeName.split("-")[1]);
+            String data = getSupportEndDayofMonth(yesr,month);
+            params.put("customParamsTwo",data);
+            netClient.post(Constants.MAIN_ENGINE+Constants.get_Group_Count_MonthTypeNum, params, new BaseJsonRes() {
+
+                @Override
+                public void onMySuccess(String data) {
+                    Log.i(TAG, "获取总局-管控数据：" + data);
+                    if (!TextUtils.isEmpty(data)) {
+                        resultGroupCountMonthTypeNum(data);
+                    }
+
+                }
+
+                @Override
+                public void onMyFailure(String content) {
+                    Log.e(TAG, "获取总局-管控数据：" + content);
+                    Utils.showShortToast(ctx, content);
+                }
+            });
+        }
+    }
+
+    //总局-月度各矿管理统计
+    private void getGroupCountMonthNumByKuang() {
+        if (!NetUtil.checkNetWork(ctx)) {
+            String jsondata = Utils.getValue(ctx, Constants.get_roup_Count_MonthNum_ByKuang);
+            if("".equals(jsondata)){
+                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
+            }else{
+                resultGroupCountMonthNumByKuang(jsondata);
+            }
+        }else{
+            RequestParams params = new RequestParams();
+            params.put("customParamsOne",timeName+"-0100:00:00");
+            int yesr = Integer.parseInt(timeName.split("-")[0]);
+            int month = Integer.parseInt(timeName.split("-")[1]);
+            String data = getSupportEndDayofMonth(yesr,month);
+            params.put("customParamsTwo",data);
+            netClient.post(Constants.MAIN_ENGINE+Constants.get_roup_Count_MonthNum_ByKuang, params, new BaseJsonRes() {
+
+                @Override
+                public void onMySuccess(String data) {
+                    Log.i(TAG, "总局-月度各矿管理统计：" + data);
+                    if (!TextUtils.isEmpty(data)) {
+                        resultGroupCountMonthNumByKuang(data);
+                    }
+
+                }
+
+                @Override
+                public void onMyFailure(String content) {
+                    Log.e(TAG, "总局-月度各矿管理统计：" + content);
                     Utils.showShortToast(ctx, content);
                 }
             });
@@ -302,14 +435,14 @@ public class Fragment_risk extends Fragment {
         }
     }
 
-    //获取总局隐患等级
-    private void getGroupCountJb() {
+    //各个矿-风险统计信息
+    private void getKuangIdentificCount(String collieryId) {
         if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_COUNT_JB);
+            String jsondata = Utils.getValue(ctx, Constants.GET_KUANG_IDENTIFIC_COUNT);
             if("".equals(jsondata)){
                 Utils.showShortToast(ctx, "没有联网，没有请求到数据");
             }else{
-                resultGroupCountJb(jsondata);
+                resultGroupCount(jsondata);
             }
         }else{
             RequestParams params = new RequestParams();
@@ -318,92 +451,21 @@ public class Fragment_risk extends Fragment {
             int month = Integer.parseInt(timeName.split("-")[1]);
             String data = getSupportEndDayofMonth(yesr,month);
             params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_COUNT_JB, params, new BaseJsonRes() {
+            params.put("kuangQuId",collieryId);
+            netClient.post(Constants.MAIN_ENGINE+Constants.GET_KUANG_IDENTIFIC_COUNT, params, new BaseJsonRes() {
 
                 @Override
                 public void onMySuccess(String data) {
-                    Log.i(TAG, "总局隐患等级返回数据：" + data);
+                    Log.i(TAG, "各个矿-风险统计信息：" + data);
                     if (!TextUtils.isEmpty(data)) {
-                        resultGroupCountJb(data);
+                        resultGroupCount(data);
                     }
 
                 }
 
                 @Override
                 public void onMyFailure(String content) {
-                    Log.e(TAG, "总局隐患等级返回错误信息：" + content);
-                    Utils.showShortToast(ctx, content);
-                }
-            });
-        }
-    }
-
-    //获取矿区隐患级别统计信息
-    private void getRecordCountNumByJb(String collieryId) {
-        if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_RECORD_COUNTNUMBYJB);
-            if("".equals(jsondata)){
-                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
-            }else{
-                resultGroupCountJb(jsondata);
-            }
-        }else{
-            RequestParams params = new RequestParams();
-            params.put("collieryId",collieryId);
-            params.put("customParamsOne",timeName+"-0100:00:00");
-            int yesr = Integer.parseInt(timeName.split("-")[0]);
-            int month = Integer.parseInt(timeName.split("-")[1]);
-            String data = getSupportEndDayofMonth(yesr,month);
-            params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_RECORD_COUNTNUMBYJB, params, new BaseJsonRes() {
-
-                @Override
-                public void onMySuccess(String data) {
-                    Log.i(TAG, "获取矿区隐患级别统计信息返回数据：" + data);
-                    if (!TextUtils.isEmpty(data)) {
-                        resultGroupCountJb(data);
-                    }
-                }
-
-                @Override
-                public void onMyFailure(String content) {
-                    Log.e(TAG, "获取矿区隐患级别统计信息返回错误信息：" + content);
-                    Utils.showShortToast(ctx, content);
-                }
-            });
-        }
-    }
-
-    //获取所有矿的隐患分矿统计信息
-    private void getGroupRecordCount() {
-        if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_RECORD_COUNT);
-            if("".equals(jsondata)){
-                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
-            }else{
-                resultGroupRecordCount(jsondata);
-            }
-        }else{
-            RequestParams params = new RequestParams();
-            params.put("customParamsOne",timeName+"-0100:00:00");
-            int yesr = Integer.parseInt(timeName.split("-")[0]);
-            int month = Integer.parseInt(timeName.split("-")[1]);
-            String data = getSupportEndDayofMonth(yesr,month);
-            params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_RECORD_COUNT, params, new BaseJsonRes() {
-
-                @Override
-                public void onMySuccess(String data) {
-                    Log.i(TAG, "获取所有矿的隐患分矿统计信息返回数据：" + data);
-                    if (!TextUtils.isEmpty(data)) {
-                        resultGroupRecordCount(data);
-                    }
-
-                }
-
-                @Override
-                public void onMyFailure(String content) {
-                    Log.e(TAG, "获取所有矿的隐患分矿统计信息返回错误信息：" + content);
+                    Log.e(TAG, "各个矿-风险统计信息：" + content);
                     Utils.showShortToast(ctx, content);
                 }
             });
@@ -445,83 +507,10 @@ public class Fragment_risk extends Fragment {
         }
     }
 
-    //获取单个矿区隐患统计信息
-    private void getKuangQuCountGroup(String collieryId) {
-        System.out.println("collieryid================================="+collieryId);
+    //获取所有矿的重大隐患分矿统计信息
+    private void getGroupImportRecordCount(String collieryId) {
         if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_KUANGQU_COUNT_GROUP);
-            if("".equals(jsondata)){
-                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
-            }else{
-                resultGroupCount(jsondata);
-            }
-        }else{
-            RequestParams params = new RequestParams();
-            params.put("collieryId",collieryId);
-            params.put("customParamsOne",timeName+"-0100:00:00");
-            int yesr = Integer.parseInt(timeName.split("-")[0]);
-            int month = Integer.parseInt(timeName.split("-")[1]);
-            String data = getSupportEndDayofMonth(yesr,month);
-            params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_KUANGQU_COUNT_GROUP, params, new BaseJsonRes() {
-
-                @Override
-                public void onMySuccess(String data) {
-                    Log.i(TAG, "获获取单个矿区隐患统计信息返回数据：" + data);
-                    if (!TextUtils.isEmpty(data)) {
-                        resultGroupCount(data);
-                    }
-                }
-
-                @Override
-                public void onMyFailure(String content) {
-                    Log.e(TAG, "获取单个矿区隐患统计信息返回错误信息：" + content);
-                    Utils.showShortToast(ctx, content);
-                }
-            });
-        }
-    }
-
-    //获取矿区隐患专业统计信息
-    private void getRecordCountNumBySid(String collieryId) {
-        if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_RECORD_COUNTNUMBYSID);
-            if("".equals(jsondata)){
-                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
-            }else{
-                resultGroupRecordCount(jsondata);
-            }
-        }else{
-            RequestParams params = new RequestParams();
-            params.put("collieryId",collieryId);
-            params.put("customParamsOne",timeName+"-0100:00:00");
-            int yesr = Integer.parseInt(timeName.split("-")[0]);
-            int month = Integer.parseInt(timeName.split("-")[1]);
-            String data = getSupportEndDayofMonth(yesr,month);
-            params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_RECORD_COUNTNUMBYSID, params, new BaseJsonRes() {
-
-                @Override
-                public void onMySuccess(String data) {
-                    Log.i(TAG, "获取矿区隐患专业统计信息返回数据：" + data);
-                    if (!TextUtils.isEmpty(data)) {
-                        resultGroupRecordCount(data);
-                    }
-                }
-
-                @Override
-                public void onMyFailure(String content) {
-                    Log.e(TAG, "获取矿区隐患专业统计信息返回错误信息：" + content);
-                    Utils.showShortToast(ctx, content);
-                }
-            });
-        }
-    }
-
-    //获取矿区隐患类型统计信息
-    private void getRecordCountNumByTid(String collieryId) {
-        if (!NetUtil.checkNetWork(ctx)) {
-            String jsondata = Utils.getValue(ctx, Constants.GET_RECORD_COUNTNUMBYTID);
+            String jsondata = Utils.getValue(ctx, Constants.get_KuangImp_Identific_List);
             if("".equals(jsondata)){
                 Utils.showShortToast(ctx, "没有联网，没有请求到数据");
             }else{
@@ -529,17 +518,17 @@ public class Fragment_risk extends Fragment {
             }
         }else{
             RequestParams params = new RequestParams();
-            params.put("collieryId",collieryId);
             params.put("customParamsOne",timeName+"-0100:00:00");
             int yesr = Integer.parseInt(timeName.split("-")[0]);
             int month = Integer.parseInt(timeName.split("-")[1]);
             String data = getSupportEndDayofMonth(yesr,month);
             params.put("customParamsTwo",data);
-            netClient.post(Constants.MAIN_ENGINE+Constants.GET_RECORD_COUNTNUMBYTID, params, new BaseJsonRes() {
+            params.put("kuangQuId",collieryId);
+            netClient.post(Constants.MAIN_ENGINE+Constants.get_KuangImp_Identific_List, params, new BaseJsonRes() {
 
                 @Override
                 public void onMySuccess(String data) {
-                    Log.i(TAG, "获取矿区隐患类型统计信息返回数据：" + data);
+                    Log.i(TAG, "获取所有矿的隐患分矿统计信息返回数据：" + data);
                     if (!TextUtils.isEmpty(data)) {
                         resultGroupImportRecordCount(data);
                     }
@@ -547,7 +536,7 @@ public class Fragment_risk extends Fragment {
 
                 @Override
                 public void onMyFailure(String content) {
-                    Log.e(TAG, "获取矿区隐患类型统计信息返回错误信息：" + content);
+                    Log.e(TAG, "获取所有矿的隐患分矿统计信息返回错误信息：" + content);
                     Utils.showShortToast(ctx, content);
                 }
             });
@@ -567,18 +556,20 @@ public class Fragment_risk extends Fragment {
         tvNum20.setText(groupCount.getZhuanXiangNum());
         tvNum11.setText(groupCount.getNianDuNum());
         tvNum10.setText(groupCount.getMonthCount());
-        //tvNum21.setText(groupCount.getSupperNum());
-    }
-    private void resultGroupCountJb(String data){
-        groupCountJb = JSONObject.parseObject(data, GroupCountJb.class);
-        initBigChartView();
-        //initChartView();
     }
 
-    private void resultGroupRecordCount(String data){
-        collierys = JSONArray.parseArray(data, Colliery.class);
-        setUpBarTopData(collieryId);
-        initBarChart(lineChartTop);
+    private void resultGroupCountMonthNumByKuang(String data){
+        List<GroupCount> groupCountList = JSONArray.parseArray(data, GroupCount.class);
+        mRecyclerView.addItemDecoration(new MyDecoration(ctx, MyDecoration.VERTICAL_LIST, R.color.white, DensityUtil.dip2px(ctx, 0.67f)));
+        adapter = new HomeHiddenDangerAdapter(groupCountList,"1");
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    private void resultGroupCountMonthTypeNum(String data){
+        GroupCount groupCount = JSONObject.parseObject(data, GroupCount.class);
+        tvNum32.setText(groupCount.getOpenNum());
+        tvNum33.setText(groupCount.getCloseNum());
+        tvNum31.setText(groupCount.getOnNum());
     }
 
     private void resultGroupImportRecordCount(String data){
@@ -596,19 +587,15 @@ public class Fragment_risk extends Fragment {
                 if(options1==0){
                     collieryId = "";
                     getGroupCount();
-                    getGroupCountJb();
-                    getGroupRecordCount();
                     getGroupImportRecordCount();
-                    totalType.setText("各矿隐患统计");
-                    tbStyle.setText("各矿个月重大隐患统计");
+                    getGroupImportantIdentificCount();
+                    getGroupCountMonthNumByKuang();
                 }else{
                     collieryId = collieryList.get(options1-1).getId();
-                    getKuangQuCountGroup(collieryId);
-                    getRecordCountNumByJb(collieryId);
-                    totalType.setText("隐患专业统计");
-                    tbStyle.setText("隐患类型统计");
-                    getRecordCountNumBySid(collieryId);
-                    getRecordCountNumByTid(collieryId);
+                    getKuangIdentificCount(collieryId);
+                    //getGroupImportRecordCount(collieryId);
+                    tbStyle.setVisibility(View.GONE);
+                    lineChartBotoom.setVisibility(View.GONE);
                 }
             }
         })
@@ -652,18 +639,12 @@ public class Fragment_risk extends Fragment {
                 title.setText(mineName + "[" + timeName + "]");
                 if(TextUtils.isEmpty(collieryId)){
                     getGroupCount();
-                    getGroupCountJb();
-                    getGroupRecordCount();
                     getGroupImportRecordCount();
-                    totalType.setText("各矿隐患统计");
-                    tbStyle.setText("各矿个月重大隐患统计");
+                    getGroupImportantIdentificCount();
+                    getGroupCountMonthNumByKuang();
                 }else{
-                    getKuangQuCountGroup(collieryId);
-                    getRecordCountNumByJb(collieryId);
-                    totalType.setText("隐患专业统计");
-                    tbStyle.setText("隐患类型统计");
-                    getRecordCountNumBySid(collieryId);
-                    getRecordCountNumByTid(collieryId);
+                    getKuangIdentificCount(collieryId);
+                    //getGroupImportRecordCount(collieryId);
                 }
             }
         })

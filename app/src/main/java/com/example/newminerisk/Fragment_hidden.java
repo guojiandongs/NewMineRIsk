@@ -7,6 +7,8 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.example.newminerisk.adapter.HomeHiddenDangerAdapter;
 import com.example.newminerisk.bean.Colliery;
 import com.example.newminerisk.bean.GroupCount;
 import com.example.newminerisk.bean.GroupCountJb;
@@ -29,7 +32,9 @@ import com.example.newminerisk.common.NetUtil;
 import com.example.newminerisk.net.BaseJsonRes;
 import com.example.newminerisk.net.NetClient;
 import com.example.newminerisk.tools.Constants;
+import com.example.newminerisk.tools.MyDecoration;
 import com.example.newminerisk.tools.Utils;
+import com.example.newminerisk.util.DensityUtil;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -50,6 +55,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 //消息
@@ -89,6 +95,8 @@ public class Fragment_hidden extends Fragment {
     private View layout;
     private Activity ctx;
     private IndexActivity parentActivity;
+    private RecyclerView mRecyclerView;
+    private HomeHiddenDangerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -249,6 +257,8 @@ public class Fragment_hidden extends Fragment {
                 }
             }
         });
+        mRecyclerView = layout.findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
     }
 
     private void initData(){
@@ -258,6 +268,7 @@ public class Fragment_hidden extends Fragment {
         getGroupCountJb();
         getGroupRecordCount();
         getGroupImportRecordCount();
+        getGroupCountBYKUANG();
     }
 
     //获取矿区
@@ -285,6 +296,42 @@ public class Fragment_hidden extends Fragment {
                 @Override
                 public void onMyFailure(String content) {
                     Log.e(TAG, "获取矿区返回错误信息：" + content);
+                    Utils.showShortToast(ctx, content);
+                }
+            });
+        }
+    }
+
+    //获取总局各矿隐患统计
+    private void getGroupCountBYKUANG() {
+        if (!NetUtil.checkNetWork(ctx)) {
+            String jsondata = Utils.getValue(ctx, Constants.GET_GROUP_IMPORTANT_COUNT_BYKUANG);
+            if("".equals(jsondata)){
+                Utils.showShortToast(ctx, "没有联网，没有请求到数据");
+            }else{
+                resultGroupCountBYKUANG(jsondata);
+            }
+        }else{
+            RequestParams params = new RequestParams();
+            params.put("customParamsOne",timeName+"-0100:00:00");
+            int yesr = Integer.parseInt(timeName.split("-")[0]);
+            int month = Integer.parseInt(timeName.split("-")[1]);
+            String data = getSupportEndDayofMonth(yesr,month);
+            params.put("customParamsTwo",data);
+            netClient.post(Constants.MAIN_ENGINE+Constants.GET_GROUP_IMPORTANT_COUNT_BYKUANG, params, new BaseJsonRes() {
+
+                @Override
+                public void onMySuccess(String data) {
+                    Log.i(TAG, "总局各矿隐患统计：" + data);
+                    if (!TextUtils.isEmpty(data)) {
+                        resultGroupCountBYKUANG(data);
+                    }
+
+                }
+
+                @Override
+                public void onMyFailure(String content) {
+                    Log.e(TAG, "总局各矿隐患统计：" + content);
                     Utils.showShortToast(ctx, content);
                 }
             });
@@ -588,13 +635,26 @@ public class Fragment_hidden extends Fragment {
     }
 
     private void resultGroupCount(String data){
+        List<GroupCount> groupCountList = new ArrayList<>();
         GroupCount groupCount = JSONObject.parseObject(data, GroupCount.class);
         tvNum21.setText(groupCount.getCloseNum());
         tvNum11.setText(groupCount.getImportantNum());
         tvNum10.setText(groupCount.getTotalNum());
         tvNum30.setText(groupCount.getOpenNum());
         tvNum20.setText(groupCount.getSupperNum());
+        groupCountList.add(groupCount);
+        mRecyclerView.addItemDecoration(new MyDecoration(ctx, MyDecoration.VERTICAL_LIST, R.color.white, DensityUtil.dip2px(ctx, 0.67f)));
+        adapter = new HomeHiddenDangerAdapter(groupCountList,"0");
+        mRecyclerView.setAdapter(adapter);
     }
+
+    private void resultGroupCountBYKUANG(String data){
+        List<GroupCount> groupCountList = JSONArray.parseArray(data, GroupCount.class);
+        mRecyclerView.addItemDecoration(new MyDecoration(ctx, MyDecoration.VERTICAL_LIST, R.color.white, DensityUtil.dip2px(ctx, 0.67f)));
+        adapter = new HomeHiddenDangerAdapter(groupCountList,"0");
+        mRecyclerView.setAdapter(adapter);
+    }
+
     private void resultGroupCountJb(String data){
         groupCountJb = JSONObject.parseObject(data, GroupCountJb.class);
         initBigChartView();
@@ -625,6 +685,7 @@ public class Fragment_hidden extends Fragment {
                     getGroupCountJb();
                     getGroupRecordCount();
                     getGroupImportRecordCount();
+                    getGroupCountBYKUANG();
                     totalType.setText("各矿隐患统计");
                     tbStyle.setText("各矿个月重大隐患统计");
                 }else{
@@ -681,6 +742,7 @@ public class Fragment_hidden extends Fragment {
                     getGroupCountJb();
                     getGroupRecordCount();
                     getGroupImportRecordCount();
+                    getGroupCountBYKUANG();
                     totalType.setText("各矿隐患统计");
                     tbStyle.setText("各矿个月重大隐患统计");
                 }else{

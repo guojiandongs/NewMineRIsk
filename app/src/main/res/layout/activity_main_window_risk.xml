@@ -67,39 +67,10 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.LinearLayoutCompat
-                    android:id="@+id/ll_10"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="3.5dp"
-                    android:layout_weight="1"
-                    android:background="#eeeeee"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_num_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#d7163f"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="当月辨识"
-                        android:textColor="#444444"
-                        android:textSize="15sp" />
-
-                </android.support.v7.widget.LinearLayoutCompat>
-
-                <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_11"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="3.5dp"
+                    android:layout_marginRight="3.5dp"
                     android:layout_weight="1"
                     android:background="#eeeeee"
                     android:gravity="center"
@@ -118,22 +89,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="年度评估"
+                        android:text="年度"
                         android:textColor="#444444"
                         android:textSize="15sp" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="3dp"
-                android:orientation="horizontal">
 
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_20"
@@ -158,28 +118,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="专项评估"
+                        android:text="专项"
                         android:textColor="#444444"
                         android:textSize="16sp" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
 
+            </android.support.v7.widget.LinearLayoutCompat>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+
                 <android.support.v7.widget.LinearLayoutCompat
-                    android:id="@+id/ll_21"
+                    android:id="@+id/ll_10"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="3.5dp"
+                    android:layout_marginRight="3.5dp"
                     android:layout_weight="1"
                     android:background="#eeeeee"
                     android:gravity="center"
                     android:orientation="vertical">
 
+
                     <TextView
-                        android:id="@+id/tv_num_21"
+                        android:id="@+id/tv_num_10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="78"
-                        android:textColor="#03a34e"
+                        android:text="0"
+                        android:textColor="#d7163f"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -187,137 +159,109 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="已处理个数"
+                        android:text="当月管控"
                         android:textColor="#444444"
                         android:textSize="15sp" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
 
-
             </android.support.v7.widget.LinearLayoutCompat>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginLeft="14dp"
-                android:gravity="center_vertical"
-                android:text="隐患等级统计"
-                android:textColor="#444444"
-                android:textSize="16sp" />
 
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="133dp"
+                android:layout_height="85dp"
                 android:layout_marginLeft="14dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginRight="14dp"
-                android:background="#eeeeee"
-                android:gravity="center"
+                android:layout_marginBottom="3dp"
                 android:orientation="horizontal">
 
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/pieChart_big"
-                    android:layout_width="108dp"
-                    android:layout_height="108dp"
-                    android:layout_marginRight="50dp" />
-
                 <android.support.v7.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="3.5dp"
+                    android:layout_weight="1"
+                    android:background="#eeeeee"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.LinearLayoutCompat
+                    <TextView
+                        android:id="@+id/tv_num_31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:text="0"
+                        android:textColor="#d7163f"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="12dp"
-                            android:src="@mipmap/ic_blue" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="一般"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="2dp"
+                        android:text="未管控"
+                        android:textColor="#444444"
+                        android:textSize="15sp" />
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="12dp"
-                            android:src="@mipmap/ic_orange" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="较大"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="12dp"
-                            android:src="@mipmap/ic_green" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="重大"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="12dp"
-                            android:src="@mipmap/ic_red" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="轻微"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                    </android.support.v7.widget.LinearLayoutCompat>
                 </android.support.v7.widget.LinearLayoutCompat>
 
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/ll_32"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="3.5dp"
+                    android:layout_weight="1"
+                    android:background="#eeeeee"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_num_32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#11bfdd"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="管控中"
+                        android:textColor="#444444"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.LinearLayoutCompat>
+
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/ll_33"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="3.5dp"
+                    android:layout_weight="1"
+                    android:background="#eeeeee"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_num_33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#11bfdd"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="已结束"
+                        android:textColor="#444444"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.LinearLayoutCompat>
 
             </android.support.v7.widget.LinearLayoutCompat>
 
@@ -327,27 +271,24 @@
                 android:layout_height="36dp"
                 android:layout_marginLeft="14dp"
                 android:gravity="center_vertical"
-                android:text="风险灾害类型统计"
+                android:text="月度各矿管理统计"
                 android:textColor="#444444"
                 android:textSize="16sp" />
 
-            <android.support.v7.widget.LinearLayoutCompat
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:itemCount="1"
                 android:layout_marginLeft="14dp"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_marginRight="14dp"
-                android:background="#eeeeee"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/lineChartTop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:minHeight="160dp" />
-
-            </android.support.v7.widget.LinearLayoutCompat>
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/blue_rectangle_white_stroke_4dp_corner"
+                android:elevation="@dimen/elevation_basic"
+                tools:listitem="@layout/item_risk_danger_statistics_of_each_unit" />
 
             <TextView
                 android:id="@+id/tb_style"
@@ -355,7 +296,7 @@
                 android:layout_height="36dp"
                 android:layout_marginLeft="14dp"
                 android:gravity="center_vertical"
-                android:text="各矿个月重大风险统计"
+                android:text="各矿重大风险统计"
                 android:textColor="#444444"
                 android:textSize="16sp" />
 

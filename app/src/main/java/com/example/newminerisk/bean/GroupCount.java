@@ -7,6 +7,9 @@ public class GroupCount {
 	private String openNum;// 区域编码
 	private String supperNum;// 区域编码
 	private String totalNum;// 区域编码
+	private String collieryName;// 区域编码
+	private String kuangQuName;// 区域编码
+	private String onNum;// 区域编码
 
 	public String getCloseNum() {
 		return closeNum;
@@ -54,5 +57,29 @@ public class GroupCount {
 
 	public void setTotalNum(String totalNum) {
 		this.totalNum = totalNum;
+	}
+
+	public String getCollieryName() {
+		return collieryName;
+	}
+
+	public void setCollieryName(String collieryName) {
+		this.collieryName = collieryName;
+	}
+
+	public String getOnNum() {
+		return onNum;
+	}
+
+	public void setOnNum(String onNum) {
+		this.onNum = onNum;
+	}
+
+	public String getKuangQuName() {
+		return kuangQuName;
+	}
+
+	public void setKuangQuName(String kuangQuName) {
+		this.kuangQuName = kuangQuName;
 	}
 }

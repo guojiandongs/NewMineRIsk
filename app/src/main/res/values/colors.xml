@@ -11,4 +11,6 @@
     <color name="black1">#7A7E83</color>
     <color name="colorGraylighter">#999999</color>
     <color name="colorGray">#666666</color>
+    <color name="colorGrayDarker">#444444</color>
+    <color name="bar_color">#f7f7f7</color>
 </resources>

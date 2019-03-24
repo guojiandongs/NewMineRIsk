@@ -141,6 +141,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="3.5dp"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     android:background="#eeeeee"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -168,7 +169,7 @@
                     android:id="@+id/ll_21"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="3.5dp"
+                    android:layout_marginRight="3.5dp"
                     android:layout_weight="1"
                     android:background="#eeeeee"
                     android:gravity="center"
@@ -193,24 +194,12 @@
 
                 </android.support.v7.widget.LinearLayoutCompat>
 
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_30"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="3.5dp"
-                    android:layout_weight="2"
+                    android:layout_marginLeft="3.5dp"
+                    android:layout_weight="1"
                     android:background="#eeeeee"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -233,6 +222,19 @@
                         android:textSize="15sp" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
+
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="3dp"
+                android:visibility="gone"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="0dp"
@@ -263,6 +265,31 @@
 
 
             </android.support.v7.widget.LinearLayoutCompat>
+
+            <TextView
+                android:id="@+id/tb_totalType"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="14dp"
+                android:gravity="center_vertical"
+                android:text="各矿隐患统计"
+                android:textColor="#444444"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="1"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/blue_rectangle_white_stroke_4dp_corner"
+                android:elevation="@dimen/elevation_basic"
+                tools:listitem="@layout/item_hidden_danger_statistics_of_each_unit" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -389,21 +416,12 @@
 
             </android.support.v7.widget.LinearLayoutCompat>
 
-            <TextView
-                android:id="@+id/tb_totalType"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginLeft="14dp"
-                android:gravity="center_vertical"
-                android:text="各矿隐患统计"
-                android:textColor="#444444"
-                android:textSize="16sp" />
-
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
+                android:visibility="gone"
                 android:background="#eeeeee"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -423,7 +441,7 @@
                 android:layout_height="36dp"
                 android:layout_marginLeft="14dp"
                 android:gravity="center_vertical"
-                android:text="各矿个月重大隐患统计"
+                android:text="各矿重大隐患统计"
                 android:textColor="#444444"
                 android:textSize="16sp" />
 

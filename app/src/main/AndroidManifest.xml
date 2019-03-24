@@ -20,6 +20,8 @@
         <activity android:name=".ListActivity"></activity>
         <activity android:name=".MainWindowActivity" />
         <activity android:name=".IndexActivity" />
+        <activity android:name=".HomePageTotalDetailActivity" />
+        <activity android:name=".IndentificationEvaluationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

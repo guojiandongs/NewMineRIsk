@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
-        android:text="智能隐患排查\n闭合管理平台"
+        android:text="双重预警平台"
         android:textColor="@android:color/white"
         android:textSize="40sp"
         android:textStyle="bold" />

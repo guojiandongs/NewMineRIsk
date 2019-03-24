@@ -4,4 +4,11 @@
     <string name="risk_statistics">风险统计</string>
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
+    <string name="colliery_name">煤矿名称</string>
+    <string name="processed">已处理</string>
+    <string name="untreated">未处理</string>
+    <string name="total">总数</string>
+    <string name="opentype_on">未管控</string>
+    <string name="opentype_open">管控中</string>
+    <string name="opentype_clone">已结束</string>
 </resources>

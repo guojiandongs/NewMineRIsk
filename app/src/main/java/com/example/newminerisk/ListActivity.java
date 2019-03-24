@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity {
     private List<HiddenDangerRecord> list;
     private ExpandAdapter adapter;
     private Integer total;
-    private int page = 1;
+    private int page = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class ListActivity extends AppCompatActivity {
 
         adapter.setEnableLoadMore(true);
 
-        addData();
+        //addData();
     }
 
     private void addData() {
@@ -97,6 +97,7 @@ public class ListActivity extends AppCompatActivity {
     //获取隐患统计
     private void getHiddenDangerRecordListTotal(String page) {
         String collieryId = getIntent().getExtras().getString("collieryId");
+        String openType = getIntent().getExtras().getString("openType");
         String customParamsOne = getIntent().getExtras().getString("customParamsOne");
         String customParamsTwo = getIntent().getExtras().getString("customParamsTwo");
         String url = getIntent().getExtras().getString("url");
@@ -115,7 +116,8 @@ public class ListActivity extends AppCompatActivity {
             }
         }else{
             RequestParams params = new RequestParams();
-            params.put("collieryId",collieryId);
+            params.put("kuangQuId",collieryId);
+            params.put("openType",openType);
             params.put("customParamsOne",customParamsOne);
             params.put("customParamsTwo",customParamsTwo);
             params.put("page",page);

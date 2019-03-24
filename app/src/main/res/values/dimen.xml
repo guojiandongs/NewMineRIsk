@@ -3,4 +3,5 @@
     <dimen name="normal_ts" >15sp</dimen>
     <dimen name="middle_ts" >16sp</dimen>
     <dimen name="small_ts" >12sp</dimen>
+    <dimen name="elevation_basic" >0.5dp</dimen>
 </resources>

@@ -24,9 +24,11 @@ public interface Constants {
 	String PAGE = "1";
 	String ROWS = "10";
 	String ISUPERVISION = "1";
+	public static final int TYPE_ITEM = 0;
+	public static final int TYPE_FOOTER = 1;
 
 	// 外网地址
-	String MAIN_ENGINE = "http://1.63.57.10:18070/";
+	String MAIN_ENGINE = "http://59.49.107.27:8192/";
 
 	// 内网地址
 	String INNER_MAIN_ENGINE = "123123";
@@ -66,4 +68,20 @@ public interface Constants {
 	String GET_GROUP_RISK_COUNT_ = "mobile/groupIdentificationMobileAction!getGroupIdentificationCount.action";
 	// 获取重大风险数量统计
 	String GET_GROUP_IMPORTANT_RECORD_RISK_COUNT = "mobile/groupIdentificationMobileAction!getGroupImportantIdentificCount.action";
+	// 总局-隐患排查列表统计
+	String GET_GROUP_IMPORTANT_COUNT_BYKUANG = "mobile/countGroupMobileAction!getGroupCountByKuang.action";
+	// 总局-风险管控统计
+	String get_Group_Count_MonthTypeNum = "mobile/groupIdentificationMobileAction!getGroupCountMonthTypeNum.action";
+	// 总局-月度各矿管理统计
+	String get_roup_Count_MonthNum_ByKuang = "mobile/groupIdentificationMobileAction!getGroupCountMonthNumByKuang.action";
+	// 各个矿-风险统计信息
+	String GET_KUANG_IDENTIFIC_COUNT = "mobile/groupIdentificationMobileAction!getKuangIdentificCount.action";
+	// 各个矿-重大风险列表
+	String get_KuangImp_Identific_List = "mobile/groupIdentificationMobileAction!getKuangImpIdentificList.action";
+	// 各个矿-风险管控统计
+	String GET_IDENTIFIC_LIST_BYOPENTYPE = "mobile/groupIdentificationMobileAction!getIdentificListByopenType.action";
+	// 各个矿-获取当月管控风险统计列表(当月管控列表)
+	String GET_YEARORZHUANG_BILITYIDENTIF_LIST = "mobile/groupIdentificationMobileAction!getYearOrZhuangbilityIdentifList.action";
+	// 各个矿-获取年度、专项管风险统计列表
+	String get_IdentificMonth_List = "mobile/groupIdentificationMobileAction!getIdentificMonthList.action";
 }
