@@ -28,7 +28,7 @@ public interface Constants {
 	public static final int TYPE_FOOTER = 1;
 
 	// 外网地址
-	String MAIN_ENGINE = "http://59.49.107.27:8192/";
+	String MAIN_ENGINE = "http://1.63.57.10:18070/group/";
 
 	// 内网地址
 	String INNER_MAIN_ENGINE = "123123";

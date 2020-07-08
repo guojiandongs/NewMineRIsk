@@ -32,6 +32,11 @@ public class HomeHiddenDangerAdapter extends RecyclerView.Adapter {
     public HomeHiddenDangerAdapter(List<GroupCount> recordList,String type) {
         this.recordList = recordList;
         this.type = type;
+        //if(type.equals("0")){
+            needShowMoreButtonNum = recordList.size();
+        //}else{
+            //needShowMoreButtonNum = 3;
+        //}
     }
 
     @Override
